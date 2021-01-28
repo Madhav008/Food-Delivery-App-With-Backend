@@ -5,7 +5,7 @@
 This app uses Flutter with Laravel Api 
 
 ## GiF
-<img  alt="GIF" src="sc\ezgif.com-gif-maker.gif">&nbsp;
+<img  width="50%" alt="GIF" src="sc\ezgif.com-gif-maker.gif">&nbsp;
 ## Screenshots
 <img width="30%" alt="Login Page" src="sc\Screenshot_1611874303.png">&nbsp; &nbsp;&nbsp; &nbsp;
 <img width="30%" alt="Auth Page" src="sc\Screenshot_1611874492.png">&nbsp; &nbsp;&nbsp; &nbsp;
