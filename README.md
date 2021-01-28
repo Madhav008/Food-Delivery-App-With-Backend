@@ -1,16 +1,26 @@
-# puri_fast_food
+# StoryBooks
 
-A new Flutter application.
+> Create sc and private stories from your life
 
-## Getting Started
+This app uses Flutter with Laravel Api 
 
-This project is a starting point for a Flutter application.
+## GiF
+<img  alt="GIF" src="sc/Gif.gif">&nbsp;
+## Screenshots
+<img width="30%" alt="Login Page" src="sc\Screenshot_1611874303.png">&nbsp; &nbsp;&nbsp; &nbsp;
+<img width="30%" alt="Auth Page" src="sc\Screenshot_1611874492.png">&nbsp; &nbsp;&nbsp; &nbsp;
+<img width="30%" alt="scStories" src="sc\Screenshot_1611874503.png">&nbsp; &nbsp;&nbsp; &nbsp;
+<img width="30%" alt="ReadPage" src="sc\Screenshot_1611874514.png">&nbsp; &nbsp;&nbsp; &nbsp;
 
-A few resources to get you started if this is your first Flutter project:
+## Usage
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Add your mongoDB URI and Google OAuth credentials to the config.env file
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+# Install Packages  
+flutter pub get
+
+# Run the Project
+flutter run
+
+```
