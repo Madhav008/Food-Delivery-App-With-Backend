@@ -11,69 +11,84 @@ import 'widgets/bought_food.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatelessWidget {
+  int userId;
+
+  Future<int> user() async {
+    var user = await apiService.checkAuth();
+    userId = user.id;
+    return userId;
+  }
+
   ApiService apiService = ApiService();
   @override
   Widget build(BuildContext context) {
-    return FutureProvider(
-      create: (context) => apiService.getProduct(),
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Home_Top_Info(),
-                FoodCatagory(),
-                SizedBox(
-                  height: 10,
-                ),
-                SearchBox(),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "Frequently Bought Items",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Home_Top_Info(),
+              FoodCatagory(),
+              SizedBox(
+                height: 10,
+              ),
+              SearchBox(),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "Frequently Bought Items",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  GestureDetector(
+                    onTap: null,
+                    child: Text(
+                      "view all",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.deepOrangeAccent),
                     ),
-                    GestureDetector(
-                      onTap: null,
-                      child: Text(
-                        "view all",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepOrangeAccent),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Consumer<List<Product>>(builder: (context, product, child) {
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              FutureProvider(
+                create: (context) => apiService.getProduct(),
+                child:
+                    Consumer<List<Product>>(builder: (context, product, child) {
                   return (product == null)
                       ? Center(
                           child: CircularProgressIndicator(),
                         )
                       : Column(
                           children: product.map((food) {
-                          return Container(
-                              margin: EdgeInsets.only(bottom: 20),
-                              child: BoughtFoods(
-                                id: food.id,
-                                catagory: food.categoryId,
-                                price: food.price,
-                                image: food.image_url,
-                                name: food.name,
-                              ));
+                          return GestureDetector(
+                            onTap: () {
+                              user();
+                              apiService.addtoFavorite(food.id, userId);
+                              print("Added to Fav");
+                            },
+                            child: Container(
+                                margin: EdgeInsets.only(bottom: 20),
+                                child: BoughtFoods(
+                                  id: food.id,
+                                  catagory: food.categoryId,
+                                  price: food.price,
+                                  image: food.image_url,
+                                  name: food.name,
+                                )),
+                          );
                         }).toList());
-                })
-              ],
-            ),
+                }),
+              )
+            ],
           ),
         ),
       ),

@@ -3,14 +3,14 @@ import 'package:puri_fast_food/models/category_model.dart';
 import 'package:puri_fast_food/models/login.dart';
 import 'package:puri_fast_food/models/product_model.dart';
 import 'package:puri_fast_food/models/restaurant_model.dart';
+import 'package:puri_fast_food/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   Dio dio = new Dio();
 
-  var url = "http://0bd4c6749485.ngrok.io";
+  var url = "http://47dfc5d13702.ngrok.io";
 
-  
   Future<Login> createCustomer(
       String username, String email, String password) async {
     var data;
@@ -28,7 +28,6 @@ class ApiService {
       if (response.statusCode == 201) {
         data = Login.fromJson(response.data);
       }
-     
     } on DioError catch (e) {
       print(e.message);
     }
@@ -56,7 +55,8 @@ class ApiService {
     return data;
   }
 
-  Future checkAuth() async {
+  Future<User> checkAuth() async {
+    User data;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     try {
@@ -68,11 +68,12 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        return response.data;
+        data = User.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e.message);
     }
+    return data;
   }
 
   Future logout() async {
@@ -115,7 +116,7 @@ class ApiService {
     return data;
   }
 
-   Future<List<Product>> getProductbyCategory(var id) async {
+  Future<List<Product>> getProductbyCategory(var id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     List<Product> data;
@@ -135,6 +136,7 @@ class ApiService {
     }
     return data;
   }
+
   Future<List<Category>> getCategory() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -172,6 +174,70 @@ class ApiService {
       if (response.statusCode == 200) {
         data =
             (response.data as List).map((e) => Restaurant.fromJson(e)).toList();
+      }
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return data;
+  }
+
+  Future<List<Product>> getFavoriteProduct() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    List<Product> data;
+    try {
+      var response = await dio.get(
+        "$url/api/favorite/",
+        options: new Options(
+            headers: {'Authorization': 'Bearer $token'},
+            contentType: Headers.jsonContentType),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data as List).map((i) => Product.fromJson(i)).toList();
+      }
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return data;
+  }
+
+  Future<Product> deleteFavorite(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    Product data;
+    try {
+      var response = await dio.delete(
+        "$url/api/favorite/$id",
+        options: new Options(
+            headers: {'Authorization': 'Bearer $token'},
+            contentType: Headers.jsonContentType),
+      );
+
+      if (response.statusCode == 200) {
+        data = Product.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return data;
+  }
+
+  Future<Product> addtoFavorite(var id, var userId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    Product data;
+    try {
+      var response = await dio.post(
+        "$url/api/favorite/",
+        data: {"product_id": id, "user_id": userId},
+        options: new Options(
+            headers: {'Authorization': 'Bearer $token'},
+            contentType: Headers.jsonContentType),
+      );
+
+      if (response.statusCode == 200) {
+        data = Product.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e.message);
