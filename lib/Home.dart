@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:puri_fast_food/Provider/product_provider.dart';
 import 'package:puri_fast_food/models/product_model.dart';
+import 'package:puri_fast_food/pages/product_detail.dart';
 import 'package:puri_fast_food/util/authentication/api_services.dart';
 import 'package:puri_fast_food/widgets/Home_Top_Info.dart';
 import 'package:puri_fast_food/widgets/bought_food.dart';
@@ -11,17 +13,11 @@ import 'widgets/bought_food.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatelessWidget {
-  int userId;
-
-  Future<int> user() async {
-    var user = await apiService.checkAuth();
-    userId = user.id;
-    return userId;
-  }
 
   ApiService apiService = ApiService();
   @override
   Widget build(BuildContext context) {
+    ProductProvider().fetchProducts();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
@@ -59,21 +55,26 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
-              FutureProvider(
+              FutureProvider<List<Product>>(
+                initialData: ProductProvider().products,
                 create: (context) => apiService.getProduct(),
-                child:
-                    Consumer<List<Product>>(builder: (context, product, child) {
+                child:Consumer<List<Product>>(builder: (context, product, child) {
                   return (product == null)
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Column(
+                      ? Padding(
+                        padding: const EdgeInsets.only(top:100.0),
+                        child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                      ): Column(
                           children: product.map((food) {
                           return GestureDetector(
                             onTap: () {
-                              user();
-                              apiService.addtoFavorite(food.id, userId);
-                              print("Added to Fav");
+                              // apiService.addtoFavorite(food.id, userId);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductDetails(food),
+                                  ));
                             },
                             child: Container(
                                 margin: EdgeInsets.only(bottom: 20),

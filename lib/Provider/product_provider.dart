@@ -8,14 +8,18 @@ class ProductProvider with ChangeNotifier {
   List<Product> _products = [];
 
   List<Product> get products => _products;
-  
-  void resetStreams() {
+
+ void resetStreams() {
     apiService = ApiService();
     _products = List<Product>();
   }
 
-   fetchProducts() {
-    apiService.getProduct().then((value) => _products.addAll(value));
-    notifyListeners();
+  void fetchProducts() {
+    apiService.getProduct().then((value) {
+      if (value.length > 0) {
+        _products.addAll(value);
+      }
+      notifyListeners();
+    });
   }
 }

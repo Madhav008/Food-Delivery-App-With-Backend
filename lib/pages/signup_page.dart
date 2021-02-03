@@ -28,17 +28,29 @@ class _SignUpPageState extends State<SignUpPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(top: 50),
+              padding: const EdgeInsets.only(top: 25),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    "Sign Up",
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+
+                  Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height/4,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      image: AssetImage('assets/Images/Logo.png'),
+                    )),
                   ),
-                  SizedBox(
-                    height: 110,
+                ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold,color: Color(0xffFC6011)),
+                    ),
                   ),
+                  
                   Consumer<SignUpValidation>(
                       builder: (context, sigupValidator, child) {
                     return Card(
@@ -94,7 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         )
                                       : Icon(
                                           Icons.visibility,
-                                          color: Colors.blueAccent,
+                                          color: Color(0xffFC6011),
                                         ),
                                 ),
                                 hintText: "Password",
@@ -107,6 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 20,
                             ),
                             TextFormField(
+                              
                               onChanged: (value) {
                                 sigupValidator.confirmPass(value);
                               },
@@ -126,7 +139,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         )
                                       : Icon(
                                           Icons.visibility,
-                                          color: Colors.blueAccent,
+                                          color: Color(0xffFC6011),
                                         ),
                                 ),
                                 hintText: "Confirm Password",
@@ -177,7 +190,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 50,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent,
+                        color: Color(0xffFC6011),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Center(
@@ -195,34 +208,37 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 20,
                     color: Colors.white,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Already have an account?",
-                        style: TextStyle(
-                            color: Color(0xffbdc2cb),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        SignInPage()));
-                          },
-                          child: Text(
-                            "Sign In",
-                            style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18),
-                          )),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(bottom:8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Already have an account?",
+                          style: TextStyle(
+                              color: Color(0xffbdc2cb),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          SignInPage()));
+                            },
+                            child: Text(
+                              "Sign In",
+                              style: TextStyle(
+                                  color: Color(0xffFC6011),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            )),
+                      ],
+                    ),
                   ),
                 ],
               ),

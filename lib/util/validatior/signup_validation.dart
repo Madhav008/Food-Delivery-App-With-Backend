@@ -58,7 +58,6 @@ class SignUpValidation with ChangeNotifier {
       _password =
           ValidationItem(null, "Please Enter at least 6 character password");
     }
-
     notifyListeners();
   }
 

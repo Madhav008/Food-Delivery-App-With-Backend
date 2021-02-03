@@ -6,8 +6,7 @@ class Product {
   int restaurantId;
   int categoryId;
   int price;
-  String createdAt;
-  String updatedAt;
+ 
 
   Product(
       {this.id,
@@ -16,9 +15,7 @@ class Product {
       this.description,
       this.restaurantId,
       this.categoryId,
-      this.price,
-      this.createdAt,
-      this.updatedAt});
+      this.price});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -28,8 +25,7 @@ class Product {
     restaurantId = json['restaurant_id'];
     categoryId = json['category_id'];
     price = json['price'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+  
   }
 
   Map<String, dynamic> toJson() {
@@ -41,8 +37,6 @@ class Product {
     data['restaurant_id'] = this.restaurantId;
     data['category_id'] = this.categoryId;
     data['price'] = this.price;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

@@ -48,7 +48,7 @@ class _BoughtFoodsState extends State<BoughtFoods> {
                 end: Alignment.topCenter,
               )),
               height: 60,
-              width: 340,
+              width: MediaQuery.of(context).size.width,
             ),
           ),
           Positioned(

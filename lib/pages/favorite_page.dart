@@ -5,11 +5,12 @@ import 'package:puri_fast_food/widgets/bought_food.dart';
 
 class FavoritePage extends StatelessWidget {
   ApiService apiService = ApiService();
- 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 50.0, left: 10, right: 10),
+      padding:
+          const EdgeInsets.only(top: 50.0, left: 10, right: 10,),
       child: FutureBuilder<List<Product>>(
         future: apiService.getFavoriteProduct(),
         builder: (context, snapshot) {
@@ -21,7 +22,6 @@ class FavoritePage extends StatelessWidget {
                     children: product.map((food) {
                   return GestureDetector(
                     onTap: () {
-                    
                       apiService
                           .deleteFavorite(food.id)
                           .then((value) => print("delete to Fav"));

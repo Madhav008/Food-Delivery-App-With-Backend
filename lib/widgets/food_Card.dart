@@ -5,7 +5,11 @@ class FoodCard extends StatelessWidget {
   final String imagePath;
   final int catagoryNumber;
 
-  FoodCard({this.catagoryName,this.catagoryNumber,this.imagePath});
+  FoodCard({
+    this.catagoryName,
+    this.catagoryNumber,
+    this.imagePath,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +19,10 @@ class FoodCard extends StatelessWidget {
         color: Colors.redAccent,
         shadowColor: Colors.yellow,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0, ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+            vertical: 10.0,
+          ),
           child: Row(
             children: <Widget>[
               Image(
@@ -29,7 +36,11 @@ class FoodCard extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(catagoryName,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),),
+                  Text(
+                    catagoryName,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                  ),
                   Text("$catagoryNumber Kinds"),
                 ],
               )

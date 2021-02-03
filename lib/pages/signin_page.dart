@@ -21,6 +21,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     final signInValidator = Provider.of<SignInValidation>(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       body: ProgressHUD(
         inAsyncCall: signInValidator.isApiCallProcess,
         opacity: 0.3,
@@ -31,22 +32,34 @@ class _SignInPageState extends State<SignInPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(
-                  height: 30,
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height/4,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      image: AssetImage('assets/Images/Logo.png'),
+                    )),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 50.0),
+                  child: Text(
+                    "Login",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color: Color(0xffFC6011)),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
-                    "Sign In",
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    "Add your detail to login",
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
                   ),
                 ),
-                SizedBox(
-                  height: 100,
-                ),
-                SizedBox(height: 10),
                 Card(
                   elevation: 5,
+                  shadowColor: Color(0xffFC6011),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
@@ -107,7 +120,7 @@ class _SignInPageState extends State<SignInPage> {
                       "Forgotten Password?",
                       style: TextStyle(
                           fontSize: 18,
-                          color: Colors.blueAccent,
+                          color: Color(0xffFC6011),
                           fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -127,19 +140,19 @@ class _SignInPageState extends State<SignInPage> {
                         signInValidator.setApiCall();
 
                         if (ret != null) {
-                              SharedPreferences.getInstance().then((value) =>
-                                  value.setString('token',ret.accessToken ));
+                          SharedPreferences.getInstance().then((value) =>
+                              value.setString('token', ret.accessToken));
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MainScreen(),
                               ));
                         } else {
-                            FormHelper.showMessage(context, "SuperStore App",
-                                "Email Id/Password not valid", "OK", () {
-                              Navigator.pop(context);
-                            });
-                          }
+                          FormHelper.showMessage(context, "SuperStore App",
+                              "Email Id/Password not valid", "OK", () {
+                            Navigator.pop(context);
+                          });
+                        }
                       });
                     }
                   },
@@ -147,7 +160,7 @@ class _SignInPageState extends State<SignInPage> {
                     height: 50,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: Colors.blueAccent,
+                      color: Color(0xffFC6011),
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Center(
@@ -188,7 +201,7 @@ class _SignInPageState extends State<SignInPage> {
                         child: Text(
                           "Sign Up",
                           style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Color(0xffFC6011),
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                         )),

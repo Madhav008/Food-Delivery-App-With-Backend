@@ -15,6 +15,7 @@ class Home_Top_Info extends StatelessWidget {
             children: <Widget>[
               Text(
                 "What Would",
+                
                 style: textstyle,
               ),
               Text(
