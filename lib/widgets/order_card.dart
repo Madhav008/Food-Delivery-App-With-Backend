@@ -31,15 +31,18 @@ class OrderCard extends StatelessWidget {
                 children: <Widget>[
                   InkWell(
                       onTap: () {
-                         cart.quantity[model.id]++;
-                          cart.changeQty(model.productId,cart.quantity[model.id] );
+                        // if(cart.quantity[model.productId]==null){
+                        //   cart.quantity[model.productId]=model.cartProdQty;
+                        // }
+                         cart.quantity[model.productId]++;
+                          cart.changeQty(model.productId,cart.quantity[model.productId]);
                       },
                       child: Icon(
                         Icons.keyboard_arrow_up,
                         color: Color(0xffd3d3d3),
                       )),
                   Text(
-                    cart.quantity[model.id].toString(),
+                    cart.quantity[model.productId].toString(),
                     style: TextStyle(
                       fontSize: 18,
                       color: Color(0xffd3d3d3),
@@ -47,9 +50,12 @@ class OrderCard extends StatelessWidget {
                   ),
                   InkWell(
                       onTap: () {
-                        if(cart.quantity[model.id]>1){
-                          cart.quantity[model.id]--;
-                          cart.changeQty(model.productId, cart.quantity[model.id]);
+                        // if(cart.quantity[model.productId]==null){
+                        //   cart.quantity[model.productId]=model.cartProdQty;
+                        // }
+                        if(cart.quantity[model.productId]>1){
+                          cart.quantity[model.productId]--;
+                          cart.changeQty(model.productId, cart.quantity[model.productId]);
                         }
                       },
                       child: Icon(

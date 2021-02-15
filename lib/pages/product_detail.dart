@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:puri_fast_food/Provider/cart_provider.dart';
 import 'package:puri_fast_food/models/product_model.dart';
 import 'package:puri_fast_food/pages/order_page.dart';
 import 'package:puri_fast_food/util/authentication/api_services.dart';
@@ -10,6 +12,7 @@ class ProductDetails extends StatelessWidget {
   ApiService apiService = new ApiService();
   @override
   Widget build(BuildContext context) {
+    var cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -59,7 +62,18 @@ class ProductDetails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                 child: FlatButton(
-                    onPressed: () => apiService.addtocart(model.id,1),
+                    onPressed: () async{
+                      if (cart.cartProduct
+                          .where((element) => element.productId == model.id)
+                          .isEmpty) {
+                        apiService.addtocart(model.id, 1);
+                      } else {
+                        print(cart.quantity[model.id]);
+
+                        cart.quantity[model.id]++;
+                        await cart.changeQty(model.id, cart.quantity[model.id]);
+                      }
+                    },
                     child: Container(
                       height: 60,
                       width: MediaQuery.of(context).size.width / 2 + 50,

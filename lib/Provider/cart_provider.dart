@@ -33,14 +33,14 @@ class CartProvider with ChangeNotifier {
     var cart = await apiService.getCartProducts();
     _cartProduct.addAll(cart);
     _cartProduct.forEach((element) {
-      _quantity.putIfAbsent(element.productId, () => element.cartProdQty);
+      _quantity[element.productId]= element.cartProdQty;
     });
     notifyListeners();
   }
 
   changeQty(var id, var qty) async {
+    
     _quantity.update(id, (value) => qty);
-
     _cartProduct.forEach((cartItem) {
       cartItem.cartProdQty = _quantity[cartItem.productId];
     });

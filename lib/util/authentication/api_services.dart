@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ApiService {
   Dio dio = new Dio();
 
-  var url = "http://36edf8fb4ad3.ngrok.io";
+  var url = "https://d1beeda2eba5.ngrok.io";
 
   Future<Login> createCustomer(
       String username, String email, String password) async {
@@ -245,7 +245,7 @@ class ApiService {
     }
     return data;
   }
-
+// add to cart
   Future<Cart> addtocart(var id,var qty) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -335,4 +335,7 @@ class ApiService {
     }
     return data;
   }
+
+  //checkout
+
 }
